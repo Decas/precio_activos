@@ -2,27 +2,42 @@ name: Fetch closing prices
 
 on:
   schedule:
-    # Ejecuta a las 20:00 UTC (17:00 Argentina) todos los días
-    - cron: "0 20 * * *"
-  workflow_dispatch:  # Permite ejecución manual desde la UI
+    - cron: "0 20 * * *"        # se ejecuta todos los días a las 20:00 UTC (17:00 Argentina)
+  workflow_dispatch:              # permite ejecución manual
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Clona el repositorio con todo el historial y con credenciales
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0           # necesario para poder hacer commits
+          persist-credentials: true
+
+      # Configura Python
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+
+      # Instala librerías
       - name: Instalar dependencias
         run: pip install requests beautifulsoup4 schedule pandas pytz
+
+      # Ejecuta solo la función job() para generar el CSV
       - name: Ejecutar script
         run: python -c "import fetch_closing_prices; fetch_closing_prices.job()"
-      # Opcional: subir al repo los CSV generados
-      - name: Subir CSV
+
+      # Añade, commitea y sube el CSV al repositorio
+      - name: Subir CSV al repositorio
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add closing_prices_*.csv || true
-          git commit -m "Agregar CSV de precios" || true
-          git push || true
+          # Solo hace commit si hay cambios
+          if git diff --staged --quiet; then
+            echo "No hay cambios para commitear"
+          else
+            git commit -m "Actualizar CSV de precios"
+            git push
+          fi
