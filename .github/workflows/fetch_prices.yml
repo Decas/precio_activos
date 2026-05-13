@@ -17,7 +17,7 @@ jobs:
       - name: Instalar dependencias
         run: pip install requests beautifulsoup4 schedule pandas pytz
       - name: Ejecutar script
-        run: python fetch_closing_prices.py
+        run: python -c "import fetch_closing_prices; fetch_closing_prices.job()"
       # Opcional: subir al repo los CSV generados
       - name: Subir CSV
         run: |
