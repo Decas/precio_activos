@@ -58,6 +58,9 @@ HEADERS = {
 }
 
 
+ARGENTINE_NUMBER_RE = re.compile(r"^-?\d{1,3}(?:\.\d{3})*,\d{2}$|^-?\d+,\d{2}$")
+
+
 def parse_argentine_number(text):
     """
     Convierte números con formato argentino:
@@ -65,7 +68,7 @@ def parse_argentine_number(text):
     '90.850,00' -> 90850.00
     '63,90' -> 63.90
     """
-    clean = text.strip().replace(".", "").replace(",", ".")
+    clean = text.strip().replace("\xa0", " ").replace(".", "").replace(",", ".")
     return float(clean)
 
 
@@ -75,15 +78,80 @@ def fetch_html(url):
     return response.text
 
 
-def extract_first_price_from_rava(html):
+def visible_text_lines(html):
     """
-    Extrae el primer precio visible desde una página de Rava.
-    Para CEDEARs y acciones suele coincidir con la cotización principal en pesos.
+    Extrae solo texto visible y descarta title/meta/script/style.
+    Esto evita tomar porcentajes del <title>, por ejemplo:
+    '$9.850 (-0,96%)'.
     """
-    match = re.search(r"([0-9]{1,3}(?:\.[0-9]{3})*,[0-9]{2})", html)
-    if not match:
-        raise ValueError("No se encontró precio en la página de Rava")
-    return parse_argentine_number(match.group(1))
+    soup = BeautifulSoup(html, "html.parser")
+
+    for tag in soup(["script", "style", "noscript", "title", "meta"]):
+        tag.decompose()
+
+    return [
+        line.strip().replace("\xa0", " ")
+        for line in soup.get_text("\n").splitlines()
+        if line.strip()
+    ]
+
+
+def looks_like_price_line(line):
+    """
+    Acepta precios argentinos como '9.850,00' o '63,90'.
+    Rechaza porcentajes, fechas, horarios y textos mezclados.
+    """
+    line = line.strip().replace("\xa0", " ")
+
+    if "%" in line:
+        return False
+
+    if "/" in line or ":" in line:
+        return False
+
+    return bool(ARGENTINE_NUMBER_RE.match(line))
+
+
+def extract_main_price_from_rava(html, ticker):
+    """
+    Extrae el precio principal visible desde una página de Rava.
+
+    Antes se buscaba el primer número con coma decimal en todo el HTML.
+    Eso podía tomar la variación del <title>, por ejemplo '0,96',
+    en vez del precio real '9.850,00'.
+    """
+    lines = visible_text_lines(html)
+    ticker_upper = ticker.upper()
+
+    candidate_start_indexes = []
+
+    for i, line in enumerate(lines):
+        line_upper = line.upper()
+
+        if line_upper == ticker_upper:
+            candidate_start_indexes.append(i)
+
+        if line_upper.startswith(ticker_upper + " "):
+            candidate_start_indexes.append(i)
+
+    for start_index in candidate_start_indexes:
+        for line in lines[start_index + 1:start_index + 8]:
+            if looks_like_price_line(line):
+                price = parse_argentine_number(line)
+
+                if price > 0:
+                    return price
+
+    # Fallback defensivo: buscar después del bloque de cotización histórica actual.
+    for i, line in enumerate(lines):
+        if line.strip().lower() == "cotizaciones históricas":
+            for historical_line in lines[i + 1:i + 20]:
+                matches = re.findall(r"\d{1,3}(?:\.\d{3})*,\d{2}", historical_line)
+
+                if len(matches) >= 4:
+                    return parse_argentine_number(matches[3])
+
+    raise ValueError(f"No se encontró precio principal en Rava para {ticker}")
 
 
 def fetch_rava_price_ars(ticker):
@@ -92,36 +160,46 @@ def fetch_rava_price_ars(ticker):
     """
     url = f"https://www.rava.com/perfil/{ticker}"
     html = fetch_html(url)
-    return extract_first_price_from_rava(html)
+    return extract_main_price_from_rava(html, ticker)
 
 
 def fetch_mep_price():
     """
     Obtiene el valor del dólar MEP desde Rava.
     """
-    url = "https://www.rava.com/perfil/DOLAR MEP"
+    ticker = "DOLAR MEP"
+    url = "https://www.rava.com/perfil/DOLAR%20MEP"
     html = fetch_html(url)
-    return extract_first_price_from_rava(html)
+    return extract_main_price_from_rava(html, ticker)
 
 
 def extract_usd_price_from_docta(html):
     """
     Extrae el precio en dólares desde una página de Docta Capital.
-    Busca expresiones como:
-    'Último Precio USD 63,90'
-    'Ú. Precio: USD 63,90'
+    Busca el bloque 'Último Precio' y toma el USD inmediatamente asociado.
     """
-    soup = BeautifulSoup(html, "html.parser")
-    text = soup.get_text(" ", strip=True)
+    lines = visible_text_lines(html)
+
+    for i, line in enumerate(lines):
+        normalized = line.replace("\xa0", " ")
+
+        if "Último Precio" in normalized or "Ú. Precio" in normalized:
+            nearby_text = " ".join(lines[i:i + 4]).replace("\xa0", " ")
+            match = re.search(r"USD\s*([0-9]{1,3}(?:\.[0-9]{3})*,[0-9]{2}|[0-9]+,[0-9]{2})", nearby_text)
+
+            if match:
+                return parse_argentine_number(match.group(1))
+
+    text = " ".join(lines).replace("\xa0", " ")
 
     patterns = [
-        r"Último Precio\s+USD\s*([0-9.,]+)",
-        r"Ú\. Precio:\s+USD\s*([0-9.,]+)",
-        r"USD\s*([0-9.,]+)",
+        r"Último Precio\s+USD\s*([0-9]{1,3}(?:\.[0-9]{3})*,[0-9]{2}|[0-9]+,[0-9]{2})",
+        r"Ú\. Precio:\s+USD\s*([0-9]{1,3}(?:\.[0-9]{3})*,[0-9]{2}|[0-9]+,[0-9]{2})",
     ]
 
     for pattern in patterns:
         match = re.search(pattern, text)
+
         if match:
             return parse_argentine_number(match.group(1))
 
@@ -190,7 +268,6 @@ def fetch_all_prices():
     else:
         mep_error = ""
 
-    # Primero bonos: cotización directa en dólares.
     for ticker in BOND_USD_TICKERS:
         try:
             result = fetch_bond_price_usd(ticker)
@@ -211,7 +288,6 @@ def fetch_all_prices():
                 "timestamp_argentina": timestamp,
             })
 
-    # Luego CEDEARs/acciones: precio en pesos dividido por MEP.
     for ticker in ARS_TO_USD_TICKERS:
         try:
             if mep_price is None:
