@@ -21,6 +21,7 @@ BOND_USD_TICKERS = [
 
 ARS_TO_USD_TICKERS = [
     "BRKB",
+    "BYMA",
     "DIA",
     "GOOGL",
     "IBIT",
