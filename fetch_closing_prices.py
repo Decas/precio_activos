@@ -189,6 +189,18 @@ def fetch_bond_price_usd(ticker):
 
 
 def validate_ars_asset_price(ticker, ars_price, mep_price, usd_price, raw_price_text):
+    # 1. Lista de acciones locales que pueden valer menos de $1000 ARS
+    activos_locales = ["BYMA", "YPFD"]
+    
+    if ticker in activos_locales:
+        if ars_price < 10:
+            raise ValueError(
+                f"Precio ARS sospechosamente bajo para acción local {ticker}: {ars_price} "
+                f"desde texto '{raw_price_text}'"
+            )
+        return  # Sale de la función y no evalúa la regla del USD ni de los $1000
+
+    # 2. Reglas estándar para CEDEARs
     if ars_price < 1000:
         raise ValueError(
             f"Precio ARS sospechosamente bajo para {ticker}: {ars_price} "
@@ -223,7 +235,7 @@ def fetch_ars_asset_price_usd(ticker, mep_price):
     }
 
 
-def error_row(ticker, asset_type, method, error, timestamp, mep_price=""):
+def error_row(ticker, asset_type, method, error, timestamp, mep_price="", source_url=""):
     return {
         "ticker": ticker,
         "asset_type": asset_type,
@@ -232,7 +244,7 @@ def error_row(ticker, asset_type, method, error, timestamp, mep_price=""):
         "mep_price": mep_price,
         "price_usd": "",
         "raw_price_text": "",
-        "source_url": "",
+        "source_url": source_url,  # Ahora se registra la URL en el Excel si hay error
         "method": method,
         "status": "ERROR",
         "error": str(error),
@@ -263,7 +275,8 @@ def fetch_all_prices():
             rows.append(result)
             print(f"{ticker} OK: USD {result['price_usd']} desde '{result['raw_price_text']}'")
         except Exception as e:
-            rows.append(error_row(ticker, "BONO", "Direct USD", e, timestamp))
+            url = BOND_USD_SOURCES.get(ticker, "")
+            rows.append(error_row(ticker, "BONO", "Direct USD", e, timestamp, source_url=url))
 
     for ticker in ARS_TO_USD_TICKERS:
         try:
@@ -278,6 +291,7 @@ def fetch_all_prices():
                 f"= USD {result['price_usd']} desde '{result['raw_price_text']}'"
             )
         except Exception as e:
+            url = f"https://www.rava.com/perfil/{ticker}"
             rows.append(error_row(
                 ticker,
                 "CEDEAR/ACCION",
@@ -285,6 +299,7 @@ def fetch_all_prices():
                 e,
                 timestamp,
                 mep_price if mep_price is not None else "",
+                source_url=url
             ))
             print(f"{ticker} ERROR: {e}")
 
