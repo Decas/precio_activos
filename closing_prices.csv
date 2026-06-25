@@ -1,25 +1,25 @@
 ticker,asset_type,source_ticker,price_ars,mep_price,price_usd,raw_price_text,source_url,method,status,error,timestamp_argentina
-AE38D,BONO,AE38D,,,84.24,"84,24",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AE38D,Direct USD,OK,,2026-06-24 18:22:56
-AL29D,BONO,AL29D,,,65.1,"65,10",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL29D,Direct USD,OK,,2026-06-24 18:22:56
-AL30D,BONO,AL30D,,,64.34,"64,34",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL30D,Direct USD,OK,,2026-06-24 18:22:56
-AL35D,BONO,AL35D,,,81.43,"81,43",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL35D,Direct USD,OK,,2026-06-24 18:22:56
-AN29D,BONO,AN29D,,,94.96,"94,96",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AN29D,Direct USD,OK,,2026-06-24 18:22:56
-BA7DD,BONO,BA7DD,,,77.53,"77,53",https://app.doctacapital.com.ar/dashboard/market/SUB_SOBERANO/ticker/BA7DD,Direct USD,OK,,2026-06-24 18:22:56
-GD30D,BONO,GD30D,,,66.04,"66,04",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/GD30D,Direct USD,OK,,2026-06-24 18:22:56
-YM40D,BONO,YM40D,,,105.15,"105,15",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/YM40D,Direct USD,OK,,2026-06-24 18:22:56
-YMCID,BONO,YMCID,,,111.9,"111,90",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/YMCID,Direct USD,OK,,2026-06-24 18:22:56
-BRKB,CEDEAR/ACCION,BRKB,34940.0,1505.75,23.204383,"34.940,00",https://www.rava.com/perfil/BRKB,ARS / MEP,OK,,2026-06-24 18:22:56
-BYMA,CEDEAR/ACCION,BYMA,308.0,1505.75,0.204549,"308,00",https://www.rava.com/perfil/BYMA,ARS / MEP,OK,,2026-06-24 18:22:56
-DIA,CEDEAR/ACCION,DIA,40280.0,1505.75,26.750789,"40.280,00",https://www.rava.com/perfil/DIA,ARS / MEP,OK,,2026-06-24 18:22:56
-GOOGL,CEDEAR/ACCION,GOOGL,9230.0,1505.75,6.129836,"9.230,00",https://www.rava.com/perfil/GOOGL,ARS / MEP,OK,,2026-06-24 18:22:56
-IBIT,CEDEAR/ACCION,IBIT,5265.0,1505.75,3.496596,"5.265,00",https://www.rava.com/perfil/IBIT,ARS / MEP,OK,,2026-06-24 18:22:56
-LLY,CEDEAR/ACCION,LLY,30980.0,1505.75,20.574465,"30.980,00",https://www.rava.com/perfil/LLY,ARS / MEP,OK,,2026-06-24 18:22:56
-MELI,CEDEAR/ACCION,MELI,21430.0,1505.75,14.23211,"21.430,00",https://www.rava.com/perfil/MELI,ARS / MEP,OK,,2026-06-24 18:22:56
-META,CEDEAR/ACCION,META,36080.0,1505.75,23.961481,"36.080,00",https://www.rava.com/perfil/META,ARS / MEP,OK,,2026-06-24 18:22:56
-MSFT,CEDEAR/ACCION,MSFT,18920.0,1505.75,12.565167,"18.920,00",https://www.rava.com/perfil/MSFT,ARS / MEP,OK,,2026-06-24 18:22:56
-MSTR,CEDEAR/ACCION,MSTR,7335.0,1505.75,4.871327,"7.335,00",https://www.rava.com/perfil/MSTR,ARS / MEP,OK,,2026-06-24 18:22:56
-NFLX,CEDEAR/ACCION,NFLX,2329.0,1505.75,1.546738,"2.329,00",https://www.rava.com/perfil/NFLX,ARS / MEP,OK,,2026-06-24 18:22:56
-NU,CEDEAR/ACCION,NU,9675.0,1505.75,6.425369,"9.675,00",https://www.rava.com/perfil/NU,ARS / MEP,OK,,2026-06-24 18:22:56
-NVDA,CEDEAR/ACCION,NVDA,12860.0,1505.75,8.540594,"12.860,00",https://www.rava.com/perfil/NVDA,ARS / MEP,OK,,2026-06-24 18:22:56
-SPY,CEDEAR/ACCION,SPY,18970.0,1505.75,12.598373,"18.970,00",https://www.rava.com/perfil/SPY,ARS / MEP,OK,,2026-06-24 18:22:56
-YPFD,CEDEAR/ACCION,YPFD,70800.0,1505.75,47.019758,"70.800,00",https://www.rava.com/perfil/YPFD,ARS / MEP,OK,,2026-06-24 18:22:56
+AE38D,BONO,AE38D,,,84.3,"84,30",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AE38D,Direct USD,OK,,2026-06-25 18:43:01
+AL29D,BONO,AL29D,,,65.0,"65,00",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL29D,Direct USD,OK,,2026-06-25 18:43:01
+AL30D,BONO,AL30D,,,64.42,"64,42",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL30D,Direct USD,OK,,2026-06-25 18:43:01
+AL35D,BONO,AL35D,,,81.95,"81,95",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AL35D,Direct USD,OK,,2026-06-25 18:43:01
+AN29D,BONO,AN29D,,,95.24,"95,24",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/AN29D,Direct USD,OK,,2026-06-25 18:43:01
+BA7DD,BONO,BA7DD,,,77.34,"77,34",https://app.doctacapital.com.ar/dashboard/market/SUB_SOBERANO/ticker/BA7DD,Direct USD,OK,,2026-06-25 18:43:01
+GD30D,BONO,GD30D,,,66.09,"66,09",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/GD30D,Direct USD,OK,,2026-06-25 18:43:01
+YM40D,BONO,YM40D,,,105.25,"105,25",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/YM40D,Direct USD,OK,,2026-06-25 18:43:01
+YMCID,BONO,YMCID,,,111.25,"111,25",https://app.doctacapital.com.ar/dashboard/market/HARD_DOLLAR/ticker/YMCID,Direct USD,OK,,2026-06-25 18:43:01
+BRKB,CEDEAR/ACCION,BRKB,34260.0,1499.38,22.849444,"34.260,00",https://www.rava.com/perfil/BRKB,ARS / MEP,OK,,2026-06-25 18:43:01
+BYMA,CEDEAR/ACCION,BYMA,301.25,1499.38,0.200916,"301,25",https://www.rava.com/perfil/BYMA,ARS / MEP,OK,,2026-06-25 18:43:01
+DIA,CEDEAR/ACCION,DIA,40040.0,1499.38,26.704371,"40.040,00",https://www.rava.com/perfil/DIA,ARS / MEP,OK,,2026-06-25 18:43:01
+GOOGL,CEDEAR/ACCION,GOOGL,9140.0,1499.38,6.095853,"9.140,00",https://www.rava.com/perfil/GOOGL,ARS / MEP,OK,,2026-06-25 18:43:01
+IBIT,CEDEAR/ACCION,IBIT,5190.0,1499.38,3.461431,"5.190,00",https://www.rava.com/perfil/IBIT,ARS / MEP,OK,,2026-06-25 18:43:01
+LLY,CEDEAR/ACCION,LLY,31120.0,1499.38,20.755246,"31.120,00",https://www.rava.com/perfil/LLY,ARS / MEP,OK,,2026-06-25 18:43:01
+MELI,CEDEAR/ACCION,MELI,20820.0,1499.38,13.885739,"20.820,00",https://www.rava.com/perfil/MELI,ARS / MEP,OK,,2026-06-25 18:43:01
+META,CEDEAR/ACCION,META,35000.0,1499.38,23.342982,"35.000,00",https://www.rava.com/perfil/META,ARS / MEP,OK,,2026-06-25 18:43:01
+MSFT,CEDEAR/ACCION,MSFT,18200.0,1499.38,12.138351,"18.200,00",https://www.rava.com/perfil/MSFT,ARS / MEP,OK,,2026-06-25 18:43:01
+MSTR,CEDEAR/ACCION,MSTR,6635.0,1499.38,4.425162,"6.635,00",https://www.rava.com/perfil/MSTR,ARS / MEP,OK,,2026-06-25 18:43:01
+NFLX,CEDEAR/ACCION,NFLX,2302.0,1499.38,1.535301,"2.302,00",https://www.rava.com/perfil/NFLX,ARS / MEP,OK,,2026-06-25 18:43:01
+NU,CEDEAR/ACCION,NU,9585.0,1499.38,6.392642,"9.585,00",https://www.rava.com/perfil/NU,ARS / MEP,OK,,2026-06-25 18:43:01
+NVDA,CEDEAR/ACCION,NVDA,12530.0,1499.38,8.356787,"12.530,00",https://www.rava.com/perfil/NVDA,ARS / MEP,OK,,2026-06-25 18:43:01
+SPY,CEDEAR/ACCION,SPY,18870.0,1499.38,12.585202,"18.870,00",https://www.rava.com/perfil/SPY,ARS / MEP,OK,,2026-06-25 18:43:01
+YPFD,CEDEAR/ACCION,YPFD,70750.0,1499.38,47.18617,"70.750,00",https://www.rava.com/perfil/YPFD,ARS / MEP,OK,,2026-06-25 18:43:01
