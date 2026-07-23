@@ -30,9 +30,11 @@ ARS_TO_USD_TICKERS = [
     "META",
     "MSFT",
     "MSTR",
+    "MU",
     "NFLX",
     "NU",
     "NVDA",
+    "QQQ",
     "SPY",
     "YPFD",
 ]
